@@ -10,21 +10,27 @@ To implement the inference Burglary P(B| j,⥗m) in alarm problem by using Varia
 ## Algorithm:
 
 Step 1: Define the Bayesian Network structure for alarm problem with 5 random variables, Burglary,Earthquake,John Call,Mary Call and Alarm.<br>
+
 Step 2: Define the Conditional Probability Distributions (CPDs) for each variable using the TabularCPD class from the pgmpy library.<br>
+
 Step 3: Add the CPDs to the network.<br>
+
 Step 4: Initialize the inference engine using the VariableElimination class from the pgmpy library.<br>
+
 Step 5: Define the evidence (observed variables) and query variables.<br>
+
 Step 6: Perform exact inference using the defined evidence and query variables.<br>
+
 Step 7: Print the results.<br>
 
 ## Program :
 ```PYTHON
-# Importing Library
-from pgmpy.models import BayesianNetwork
-from pgmpy.inference import VariableElimination
-# Defining network structure
+# !pip install pgmpy
 
-alarm_model = BayesianNetwork(
+from pgmpy.models import DiscreteBayesianNetwork
+from pgmpy.inference import VariableElimination
+
+alarm_model = DiscreteBayesianNetwork(
     [
         ("Burglary", "Alarm"),
         ("Earthquake", "Alarm"),
@@ -68,8 +74,8 @@ cpd_marycalls = TabularCPD(
 alarm_model.add_cpds(
     cpd_burglary, cpd_earthquake, cpd_alarm, cpd_johncalls, cpd_marycalls
 )
-alarm_model.check_model()
 
+alarm_model.check_model()
 inference=VariableElimination(alarm_model)
 evidence={"JohnCalls":1,"MaryCalls":0}
 query='Burglary'
@@ -84,12 +90,7 @@ print(res2)
 
 ## Output :
 
-
-
-<img width="432" height="204" alt="image" src="https://github.com/user-attachments/assets/11ac186f-4837-401e-b859-fdef475ab646" />
-
-
-<img width="446" height="191" alt="image" src="https://github.com/user-attachments/assets/2b008b74-b2a2-47df-9abe-00aa4d6cd15e" />
+![alt text](image.png)
 
 
 ## Result :
